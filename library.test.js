@@ -23,14 +23,15 @@ describe("library management system", () => {
     ).toThrow();
   });
 
-  test("should set default stock to 1 when not provided", () => {
-    const book = createBook(
-      "9781612680194",
-      "Rich Dad Poor Dad",
-      "Robert Kiyosaki",
-      1997
+  test("should throw and error  when stock not provided", () => {
+    expect(() =>
+      createBook(
+        "9781612680194",
+        "Rich Dad Poor Dad",
+        "Robert Kiyosaki",
+        1997
+      ).toThrow()
     );
-    expect(book.stock).toBe(1);
   });
   test("should throw an error when stock is 0 or negative", () => {
     expect(() =>
@@ -51,6 +52,9 @@ describe("library management system", () => {
         -1
       )
     ).toThrow();
+  });
+  test("should Not Create Book With Null Book", () => {
+    expect(() => createBook(null, null, null, null, null)).toThrow();
   });
   test("should create a user correctly", () => {
     const user = createUser(1, "Dhruil");
@@ -128,6 +132,53 @@ describe("library management system", () => {
     });
     test("should throw an error when returning a book not borrowed", () => {
       expect(() => library.returnBook(1, "9781612680194")).toThrow();
+    });
+  });
+
+  describe("Book Availablity", () => {
+    test("should return an empty array when no books are in the library", () => {
+      expect(library.viewAvailableBooks()).toEqual([]);
+    });
+    test("should return all books when all books have stock", () => {
+      const book1 = createBook(
+        "9781612680194",
+        "Rich Dad Poor Dad",
+        "Robert Kiyosaki",
+        1997,
+        1
+      );
+      const book2 = createBook(
+        "9780747532699",
+        "Harry Potter and the Philosopher's Stone",
+        "J.K. Rowling",
+        1997,
+        2
+      );
+      library.addBook(book1);
+      library.addBook(book2);
+
+      const availableBooks = library.viewAvailableBooks();
+      expect(availableBooks).toHaveLength(2);
+      expect(availableBooks[0]).toEqual(book1);
+      expect(availableBooks[1]).toEqual(book2);
+    });
+    test("should update available books when a book is borrowed", () => {
+      const book = createBook(
+        "9781612680194",
+        "Rich Dad Poor Dad",
+        "Robert Kiyosaki",
+        1997,
+        1
+      );
+      const user = { id: 1, name: "Test User", borrowedBooks: [] };
+      library.addBook(book);
+      library.addUser(user);
+
+      expect(library.viewAvailableBooks()).toHaveLength(1);
+
+      library.borrowBook(1, "9781612680194");
+
+      expect(library.viewAvailableBooks()).toHaveLength(0);
     });
   });
 });
