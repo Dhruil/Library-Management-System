@@ -1,9 +1,12 @@
 function createBook(isbn, title, author, publicationYear, stock) {
-  if (isbn == null) {
-    throw new Error("ISBN is required");
-  }
-  if (stock == null) {
-    stock = 1;
+  if (
+    isbn == null ||
+    title == null ||
+    author == null ||
+    publicationYear == null ||
+    stock == null
+  ) {
+    throw new Error("Some Book Details Are Missing");
   } else if (stock <= 0) {
     throw new Error("Stock must be greater than 0");
   }
@@ -55,9 +58,9 @@ function createLibrary() {
       throw new Error("User not found");
     }
     const book = books.find(
-      (book) => book.isbn === search || books.title === search
+      (book) => book.isbn === search || book.title === search
     );
-    if (!book) {
+    if (book == undefined) {
       throw new Error("Book not found");
     }
     if (book.stock === 0) {
@@ -68,7 +71,7 @@ function createLibrary() {
   }
   function getBookStock(search) {
     const book = books.find(
-      (book) => book.isbn === search || books.title === search
+      (book) => book.isbn === search || book.title === search
     );
     if (!book) {
       throw new Error("Book not found");
