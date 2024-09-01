@@ -64,14 +64,14 @@ test("should add a book to the library", () => {
   expect(availableBooks[0]).toEqual(book);
 });
 test("should create a user correctly", () => {
-  const user = createUser(1, "Test User");
+  const user = createUser(1, "Dhruil");
   expect(user.id).toBe(1);
-  expect(user.name).toBe("Test User");
+  expect(user.name).toBe("Dhruil");
   expect(user.borrowedBooks).toEqual([]);
 });
 test("should throw an error when adding a user with an existing ID", () => {
-  const user1 = createUser(1, "Test User 1");
-  const user2 = createUser(1, "Test User 2");
+  const user1 = createUser(1, "Dhruil");
+  const user2 = createUser(1, "Parmar");
   library.addUser(user1);
   expect(() => library.addUser(user2)).toThrow();
 });
