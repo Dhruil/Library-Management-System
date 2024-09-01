@@ -25,8 +25,23 @@ function createUser(id, name) {
 function createLibrary() {
   let books = [];
   let users = [];
-  function addUser(user) {}
-  function addBook(book) {}
-  function viewAvailableBooks() {}
+  function addUser(user) {
+    if (users.find((u) => u.id === user.id)) {
+      throw new Error("User ID already exists");
+    }
+    users.push(user);
+    console.log(users);
+  }
+  function addBook(book) {
+    books.push(book);
+  }
+  function viewAvailableBooks() {
+    return books.filter((book) => book.stock > 0);
+  }
+  return {
+    addUser,
+    addBook,
+    viewAvailableBooks,
+  };
 }
 module.exports = { createBook, createUser, createLibrary };
