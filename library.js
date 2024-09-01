@@ -33,7 +33,18 @@ function createLibrary() {
     console.log(users);
   }
   function addBook(book) {
-    books.push(book);
+    const existingBook = books.find(
+      (b) =>
+        b.isbn === book.isbn &&
+        b.title === book.title &&
+        b.author === book.author &&
+        b.publicationYear === book.publicationYear
+    );
+    if (existingBook) {
+      existingBook.stock += book.stock;
+    } else {
+      books.push(book);
+    }
   }
   function viewAvailableBooks() {
     return books.filter((book) => book.stock > 0);
@@ -43,5 +54,7 @@ function createLibrary() {
     addBook,
     viewAvailableBooks,
   };
+  function borrowBook(userId, search) {}
+  function returnBook(userId, search) {}
 }
 module.exports = { createBook, createUser, createLibrary };
