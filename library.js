@@ -49,12 +49,36 @@ function createLibrary() {
   function viewAvailableBooks() {
     return books.filter((book) => book.stock > 0);
   }
+  function borrowBook(userId, search) {
+    const user = users.find((u)=>u.id === userId);
+    if(!user){
+        throw new Error ("User not found");
+    }
+    const book = books.find((book) => book.isbn === search || books.title === search);
+    if (!book) {
+        throw new Error ("Book not found");
+  }
+  if(book.stock === 0){
+    throw new Error ("Book is not available");
+  }
+  book.stock--;
+  user.borrowedBooks.push(book.isbn);
+  }
+  function getBookStock(search) {
+    const book = books.find((book) => book.isbn === search || books.title === search);
+    if (!book) {
+      throw new Error("Book not found");
+    }
+    return book.stock;
+  }
+  function returnBook(userId, search) {}
   return {
     addUser,
     addBook,
     viewAvailableBooks,
+    borrowBook,
+    returnBook,
+    getBookStock
   };
-  function borrowBook(userId, search) {}
-  function returnBook(userId, search) {}
 }
 module.exports = { createBook, createUser, createLibrary };
