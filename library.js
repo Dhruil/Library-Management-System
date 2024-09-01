@@ -4,6 +4,8 @@ function createBook(isbn, title, author, publicationYear, stock) {
   }
   if (stock == null) {
     stock = 1;
+  } else if (stock <= 0) {
+    throw new Error("Stock must be greater than 0");
   }
   return {
     isbn,
