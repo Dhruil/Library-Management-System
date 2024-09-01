@@ -1,4 +1,5 @@
-const createBook = require("./library");
+const { createBook, createUser } = require("./library");
+
 test("should create a book correctly", () => {
   const book = createBook(
     "9781612680194",

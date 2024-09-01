@@ -15,4 +15,11 @@ function createBook(isbn, title, author, publicationYear, stock) {
     stock,
   };
 }
-module.exports = createBook;
+function createUser(id, name) {
+  return {
+    id,
+    name,
+    borrowedBooks: [],
+  };
+}
+module.exports = {createBook,createUser};
