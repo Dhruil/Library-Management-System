@@ -52,7 +52,7 @@ function createBook(isbn, title, author, publicationYear, stock) {
       return books.filter((book) => book.stock > 0);
     }
     function getBookStock(search) {
-      const book = books.find((book) => book.isbn === search || books.title === search);
+      const book = books.find((book) => book.isbn === search || book.title === search);
     if (!book) {
       throw new Error("Book not found");
     }
@@ -63,7 +63,7 @@ function createBook(isbn, title, author, publicationYear, stock) {
       if(!user){
         throw new Error ("User not found");
     }
-      const book = books.find((book) => book.isbn === search || books.title === search);
+      const book = books.find((book) => book.isbn === search || book.title === search);
       if (!book) {
         throw new Error ("Book not found");
     }
