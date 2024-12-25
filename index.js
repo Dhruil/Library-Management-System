@@ -25,6 +25,9 @@ function createBook(isbn, title, author, publicationYear, stock) {
     let books = [];
     let users = [];
     function addUser(user) {
+      if (users.find((u) => u.id === user.id)) {
+        throw new Error("User ID already exists");
+      }
       users.push(user);
     }
     function addBook(book) {
