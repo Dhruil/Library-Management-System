@@ -31,12 +31,29 @@ function createBook(isbn, title, author, publicationYear, stock) {
       users.push(user);
     }
     function addBook(book) {
-      books.push(book);
+      const existingBook = books.find(
+        (b) =>
+          b.isbn === book.isbn &&
+          b.title === book.title &&
+          b.author === book.author &&
+          b.publicationYear === book.publicationYear
+      );
+      if (existingBook) {
+        existingBook.stock += book.stock;
+      } else {
+        books.push(book);
+      }
     }
     function viewAvailableBooks() {
       return books.filter((book) => book.stock > 0);
     }
-    function getBookStock(search) {}
+    function getBookStock(search) {
+      const book = books.find((book) => book.isbn === search || books.title === search);
+    if (!book) {
+      throw new Error("Book not found");
+    }
+    return book.stock;
+    }
     return {
       addUser,
       addBook,
