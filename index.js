@@ -70,8 +70,19 @@ function createBook(isbn, title, author, publicationYear, stock) {
       book.stock--;
       user.borrowedBooks.push(book.isbn);
     }
-    
-    function returnBook(userId, search) {}
+    function returnBook(userId, search) {
+      const user = users.find((u) => u.id === userId);
+      if (!user) {
+        throw new Error("User not found");
+    }
+      const checkBook = user.borrowedBooks.indexOf(search);
+      if (checkBook === -1) {
+        throw new Error("User did not borrow this book");
+    }
+      const book = books.find((book) => book.isbn === search);
+      book.stock++;
+      user.borrowedBooks.splice(checkBook, 1);
+    }
     return {
       addUser,
       addBook,
