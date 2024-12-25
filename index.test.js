@@ -20,7 +20,7 @@ test("should create a book correctly", () => {
   test("should throw an error when creating a book without ISBN", () => {
     expect(() =>
       createBook(null, "Rich Dad Poor Dad", "Robert Kiyosaki", 1997, 5)
-    ).toThrow("ISBN is required");
+    ).toThrow("Some Book Details Are Missing");
   });
   test("should throw and error  when stock not provided", () => {
     expect(() =>
@@ -29,7 +29,7 @@ test("should create a book correctly", () => {
         "Rich Dad Poor Dad",
         "Robert Kiyosaki",
         1997
-      ).toThrow("Stock Is Missing")
+      ).toThrow("Some Book Details Are Missing")
     );
   });
   test("should throw an error when stock is 0 or negative", () => {
