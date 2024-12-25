@@ -3,7 +3,7 @@ describe("library management system", () => {
   beforeEach(() => {
     library = createLibrary();
   });
-test("should create a book correctly", () => {
+  test("should create a book correctly", () => {
     const book = createBook(
       "9781612680194",
       "Rich Dad Poor Dad",
@@ -65,7 +65,6 @@ test("should create a book correctly", () => {
   });
 
   test("should add a book to the library", () => {
-    const library = createLibrary();
     const book = createBook(
       "9781612680194",
       "Rich Dad Poor Dad",
@@ -79,14 +78,12 @@ test("should create a book correctly", () => {
     expect(availableBooks[0]).toEqual(book);
   });
   test("should throw an error when adding a user with an existing ID", () => {
-    const library = createLibrary();
     const user1 = createUser(1, "Dhruil");
     const user2 = createUser(1, "Parmar");
     library.addUser(user1);
     expect(() => library.addUser(user2)).toThrow();
   });
   test("should increase stock when adding an existing book", () => {   
-    const library = createLibrary();
     const book1 = createBook(
       "9781612680194",
       "Rich Dad Poor Dad",
@@ -180,6 +177,53 @@ describe("Book Availablity", () => {
     expect(library.viewAvailableBooks()).toHaveLength(1);
     library.borrowBook(1, "9781612680194");
     expect(library.viewAvailableBooks()).toHaveLength(0);
+  });
+});
+
+describe("Edge Test Cases", () => {
+  test("should borrow a book by title", () => {
+    const book = createBook(
+      "9781612680194",
+      "Rich Dad Poor Dad",
+      "Robert Kiyosaki",
+      1997,
+      1
+    );
+    const user = createUser(1, "Dhruil");
+    library.addBook(book);
+    library.addUser(user);
+    library.borrowBook(1, "Rich Dad Poor Dad");
+    expect(library.getBookStock("9781612680194")).toBe(0);
+  });
+  test("should throw an error when borrowing a book as a non-existent user", () => {
+    const book = createBook(
+      "9781612680194",
+      "Rich Dad Poor Dad",
+      "Robert Kiyosaki",
+      1997,
+      1
+    );
+    library.addBook(book);
+    expect(() => library.borrowBook(111, "9781612680194")).toThrow(
+      "User not found"
+    );
+  });
+  test("should throw an error when returning a book as a non-existent user", () => {
+    expect(() => library.returnBook(111, "9781612680194")).toThrow(
+      "User not found"
+    );
+  });
+  test("should throw an error when getting stock of a non-existent book", () => {
+    expect(() => library.getBookStock("9999999999999")).toThrow(
+      "Book not found"
+    );
+  });
+  test("should throw an error when borrowing a non-existent book", () => {
+    const user = createUser(1, "Dhruil");
+    library.addUser(user);
+    expect(() => library.borrowBook(1, "No Name")).toThrow(
+      "Book not found"
+    );
   });
 });
 });
