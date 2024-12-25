@@ -54,10 +54,14 @@ function createBook(isbn, title, author, publicationYear, stock) {
     }
     return book.stock;
     }
+    function borrowBook(userId, search) {}
+    function returnBook(userId, search) {}
     return {
       addUser,
       addBook,
       viewAvailableBooks,
+      borrowBook,
+      returnBook,
       getBookStock,
     };
   }
