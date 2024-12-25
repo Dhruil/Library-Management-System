@@ -13,3 +13,12 @@ test("should create a book correctly", () => {
     expect(book.publicationYear).toBe(1997);
     expect(book.stock).toBe(5);
   });
+  test("should throw an error when creating a book without ISBN", () => {
+    expect(() =>
+      createBook(null, "Rich Dad Poor Dad", "Robert Kiyosaki", 1997, 5)
+    ).toThrow();
+  });
+  test("should set default stock to 1 when not provided", () => {
+    const book = createBook("9781612680194", "Rich Dad Poor Dad", "Robert Kiyosaki", 1997);
+    expect(book.stock).toBe(1);
+  });
