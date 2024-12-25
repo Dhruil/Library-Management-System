@@ -15,4 +15,10 @@ function createBook(isbn, title, author, publicationYear, stock) {
       stock,
     };
   }
-  module.exports = createBook;
+  function createUser(id, name) {
+    return {
+      id,
+      name,
+    };
+  }
+  module.exports = {createBook,createUser};
