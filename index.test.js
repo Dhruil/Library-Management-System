@@ -51,3 +51,10 @@ test("should create a book correctly", () => {
     expect(availableBooks.length).toBe(1);
     expect(availableBooks[0]).toEqual(book);
   });
+  test("should throw an error when adding a user with an existing ID", () => {
+    const library = createLibrary();
+    const user1 = createUser(1, "Dhruil");
+    const user2 = createUser(1, "Parmar");
+    library.addUser(user1);
+    expect(() => library.addUser(user2)).toThrow();
+  });
