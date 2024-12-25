@@ -20,21 +20,43 @@ test("should create a book correctly", () => {
   test("should throw an error when creating a book without ISBN", () => {
     expect(() =>
       createBook(null, "Rich Dad Poor Dad", "Robert Kiyosaki", 1997, 5)
-    ).toThrow();
+    ).toThrow("ISBN is required");
   });
-  test("should set default stock to 1 when not provided", () => {
-    const book = createBook("9781612680194", "Rich Dad Poor Dad", "Robert Kiyosaki", 1997);
-    expect(book.stock).toBe(1);
+  test("should throw and error  when stock not provided", () => {
+    expect(() =>
+      createBook(
+        "9781612680194",
+        "Rich Dad Poor Dad",
+        "Robert Kiyosaki",
+        1997
+      ).toThrow("Stock Is Missing")
+    );
   });
   test("should throw an error when stock is 0 or negative", () => {
     expect(() =>
-      createBook("1234567890", "Test Book", "Test Author", 2023, 0)
+      createBook(
+        "9781612680194",
+        "Rich Dad Poor Dad",
+        "Robert Kiyosaki",
+        1997,
+        0
+      )
     ).toThrow();
     expect(() =>
-      createBook("1234567890", "Test Book", "Test Author", 2023, -1)
-    ).toThrow();
+      createBook(
+        "9781612680194",
+        "Rich Dad Poor Dad",
+        "Robert Kiyosaki",
+        1997,
+        -1
+      )
+    ).toThrow("Stock must be greater than 0");
   });
-
+  test("should Not Create Book With Null Book", () => {
+    expect(() => createBook(null, null, null, null, null)).toThrow(
+      "Some Book Details Are Missing"
+    );
+  });
   test("should create a user correctly", () => {
     const user = createUser(1, "Dhruil");
     expect(user.id).toBe(1);
