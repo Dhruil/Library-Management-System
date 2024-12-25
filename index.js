@@ -24,8 +24,19 @@ function createBook(isbn, title, author, publicationYear, stock) {
   function createLibrary() {
     let books = [];
     let users = [];
-    function addUser(user) {}
-    function addBook(book) {}
-    function viewAvailableBooks() {}
+    function addUser(user) {
+      users.push(user);
+    }
+    function addBook(book) {
+      books.push(book);
+    }
+    function viewAvailableBooks() {
+      return books.filter((book) => book.stock > 0);
+    }
+    return {
+      addUser,
+      addBook,
+      viewAvailableBooks,
+    };
   }
   module.exports = { createBook, createUser, createLibrary };

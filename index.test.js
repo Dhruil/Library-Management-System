@@ -1,4 +1,4 @@
-const {createBook,createUser} = require("./index");
+const {createBook,createUser,createLibrary} = require("./index");
 test("should create a book correctly", () => {
     const book = createBook(
       "9781612680194",
@@ -38,7 +38,7 @@ test("should create a book correctly", () => {
   });
 
   test("should add a book to the library", () => {
-    library = createLibrary();
+    const library = createLibrary();
     const book = createBook(
       "9781612680194",
       "Rich Dad Poor Dad",
