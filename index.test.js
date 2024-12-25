@@ -77,3 +77,38 @@ test("should create a book correctly", () => {
     library.addBook(book1);
     library.addBook(book2);
     expect(library.getBookStock("9781612680194")).toBe(8)});
+
+describe("Book Borrowing and Returning", () => {
+  beforeEach(() => {
+    const book = createBook(
+      "9781612680194",
+      "Rich Dad Poor Dad",
+      "Robert Kiyosaki",
+      1997,
+      2
+    );
+    const user = createUser(1, "Dhruil");
+    library.addBook(book);
+    library.addUser(user);
+  });
+  test("should allow a user to borrow a book", () => {
+    library.borrowBook(1, "9781612680194");
+    expect(library.getBookStock("9781612680194")).toBe(1);
+  });
+  test("should throw an error when borrowing a non-existent book", () => {
+    expect(() => library.borrowBook(1, "9876543210")).toThrow();
+  });
+  test("should throw an error when borrowing a book with no stock", () => {
+    library.borrowBook(1, "9781612680194");
+    library.borrowBook(1, "9781612680194");
+    expect(() => library.borrowBook(1, "9781612680194")).toThrow();
+  });
+  test("should allow a user to return a book", () => {
+    library.borrowBook(1, "9781612680194");
+    library.returnBook(1, "9781612680194");
+    expect(library.getBookStock("9781612680194")).toBe(2);
+  });
+  test("should throw an error when returning a book not borrowed", () => {
+    expect(() => library.returnBook(1, "9781612680194")).toThrow();
+  });
+});
