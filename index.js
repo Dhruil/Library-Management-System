@@ -21,4 +21,11 @@ function createBook(isbn, title, author, publicationYear, stock) {
       name,
     };
   }
-  module.exports = {createBook,createUser};
+  function createLibrary() {
+    let books = [];
+    let users = [];
+    function addUser(user) {}
+    function addBook(book) {}
+    function viewAvailableBooks() {}
+  }
+  module.exports = { createBook, createUser, createLibrary };

@@ -36,3 +36,18 @@ test("should create a book correctly", () => {
     expect(user.id).toBe(1);
     expect(user.name).toBe("Dhruil");
   });
+
+  test("should add a book to the library", () => {
+    library = createLibrary();
+    const book = createBook(
+      "9781612680194",
+      "Rich Dad Poor Dad",
+      "Robert Kiyosaki",
+      1997,
+      5
+    );
+    library.addBook(book);
+    const availableBooks = library.viewAvailableBooks();
+    expect(availableBooks.length).toBe(1);
+    expect(availableBooks[0]).toEqual(book);
+  });
