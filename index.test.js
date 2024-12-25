@@ -30,3 +30,9 @@ test("should create a book correctly", () => {
       createBook("1234567890", "Test Book", "Test Author", 2023, -1)
     ).toThrow();
   });
+
+  test("should create a user correctly", () => {
+    const user = createUser(1, "Dhruil");
+    expect(user.id).toBe(1);
+    expect(user.name).toBe("Dhruil");
+  });
