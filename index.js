@@ -19,6 +19,7 @@ function createBook(isbn, title, author, publicationYear, stock) {
     return {
       id,
       name,
+      borrowedBooks: [],
     };
   }
   function createLibrary() {
@@ -54,7 +55,22 @@ function createBook(isbn, title, author, publicationYear, stock) {
     }
     return book.stock;
     }
-    function borrowBook(userId, search) {}
+    function borrowBook(userId, search) {
+      const user = users.find((u)=>u.id === userId);
+      if(!user){
+        throw new Error ("User not found");
+    }
+      const book = books.find((book) => book.isbn === search || books.title === search);
+      if (!book) {
+        throw new Error ("Book not found");
+    }
+      if(book.stock === 0){
+        throw new Error ("Book is not available");
+    }
+      book.stock--;
+      user.borrowedBooks.push(book.isbn);
+    }
+    }
     function returnBook(userId, search) {}
     return {
       addUser,
