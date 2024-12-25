@@ -35,6 +35,7 @@ test("should create a book correctly", () => {
     const user = createUser(1, "Dhruil");
     expect(user.id).toBe(1);
     expect(user.name).toBe("Dhruil");
+    expect(user.borrowedBooks).toEqual([]);
   });
 
   test("should add a book to the library", () => {
@@ -80,6 +81,7 @@ test("should create a book correctly", () => {
 
 describe("Book Borrowing and Returning", () => {
   beforeEach(() => {
+    const library = createLibrary();
     const book = createBook(
       "9781612680194",
       "Rich Dad Poor Dad",
