@@ -22,3 +22,11 @@ test("should create a book correctly", () => {
     const book = createBook("9781612680194", "Rich Dad Poor Dad", "Robert Kiyosaki", 1997);
     expect(book.stock).toBe(1);
   });
+  test("should throw an error when stock is 0 or negative", () => {
+    expect(() =>
+      createBook("1234567890", "Test Book", "Test Author", 2023, 0)
+    ).toThrow();
+    expect(() =>
+      createBook("1234567890", "Test Book", "Test Author", 2023, -1)
+    ).toThrow();
+  });
