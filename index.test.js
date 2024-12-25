@@ -1,4 +1,8 @@
 const {createBook,createUser,createLibrary} = require("./index");
+describe("library management system", () => {
+  beforeEach(() => {
+    library = createLibrary();
+  });
 test("should create a book correctly", () => {
     const book = createBook(
       "9781612680194",
@@ -81,7 +85,6 @@ test("should create a book correctly", () => {
 
 describe("Book Borrowing and Returning", () => {
   beforeEach(() => {
-    library = createLibrary();
     const book = createBook(
       "9781612680194",
       "Rich Dad Poor Dad",
@@ -113,4 +116,48 @@ describe("Book Borrowing and Returning", () => {
   test("should throw an error when returning a book not borrowed", () => {
     expect(() => library.returnBook(1, "9781612680194")).toThrow();
   });
+});
+
+describe("Book Availablity", () => {
+  test("should return an empty array when no books are in the library", () => {
+    expect(library.viewAvailableBooks()).toEqual([]);
+  });
+  test("should return all books when all books have stock", () => {
+    const book1 = createBook(
+      "9781612680194",
+      "Rich Dad Poor Dad",
+      "Robert Kiyosaki",
+      1997,
+      1
+    );
+    const book2 = createBook(
+      "9780747532699",
+      "Harry Potter and the Philosopher's Stone",
+      "J.K. Rowling",
+      1997,
+      2
+    );
+    library.addBook(book1);
+    library.addBook(book2);
+    const availableBooks = library.viewAvailableBooks();
+    expect(availableBooks).toHaveLength(2);
+    expect(availableBooks[0]).toEqual(book1);
+    expect(availableBooks[1]).toEqual(book2);
+  });
+  test("should update available books when a book is borrowed", () => {
+    const book = createBook(
+      "9781612680194",
+      "Rich Dad Poor Dad",
+      "Robert Kiyosaki",
+      1997,
+      1
+    );
+    const user = createUser(1,"Dhruil");
+    library.addBook(book);
+    library.addUser(user);
+    expect(library.viewAvailableBooks()).toHaveLength(1);
+    library.borrowBook(1, "9781612680194");
+    expect(library.viewAvailableBooks()).toHaveLength(0);
+  });
+});
 });
