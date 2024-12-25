@@ -70,7 +70,7 @@ function createBook(isbn, title, author, publicationYear, stock) {
       book.stock--;
       user.borrowedBooks.push(book.isbn);
     }
-    }
+    
     function returnBook(userId, search) {}
     return {
       addUser,
