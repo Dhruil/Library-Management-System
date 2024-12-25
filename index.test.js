@@ -58,3 +58,21 @@ test("should create a book correctly", () => {
     library.addUser(user1);
     expect(() => library.addUser(user2)).toThrow();
   });
+  test("should increase stock when adding an existing book", () => {
+    const book1 = createBook(
+      "9781612680194",
+      "Rich Dad Poor Dad",
+      "Robert Kiyosaki",
+      1997,
+      5
+    );
+    const book2 = createBook(
+      "9781612680194",
+      "Rich Dad Poor Dad",
+      "Robert Kiyosaki",
+      1997,
+      3
+    );
+    library.addBook(book1);
+    library.addBook(book2);
+    expect(library.getBookStock("9781612680194")).toBe(8)});

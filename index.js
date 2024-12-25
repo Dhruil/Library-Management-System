@@ -36,10 +36,12 @@ function createBook(isbn, title, author, publicationYear, stock) {
     function viewAvailableBooks() {
       return books.filter((book) => book.stock > 0);
     }
+    function getBookStock(search) {}
     return {
       addUser,
       addBook,
       viewAvailableBooks,
+      getBookStock,
     };
   }
   module.exports = { createBook, createUser, createLibrary };
