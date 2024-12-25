@@ -1,0 +1,14 @@
+{
+  "name": "library-management-system",
+  "version": "1.0.0",
+  "description": "Welcome to the Library Management System! This repository demonstrates a JavaScript implementation of a simple library management system using a functional programming approach. The project emphasizes Test-Driven Development (TDD) practices with Jest for testing.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Dhruil Parmar",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
